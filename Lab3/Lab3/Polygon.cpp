@@ -5,6 +5,12 @@
 
 #define PI 3.14159265358979323846
 
+Polygon::Polygon(const size_t num, const Vertex vertices[])
+{
+	for (int i = 0; i < num; i++)
+		AddNewVertex(vertices[i]);
+}
+
 double Polygon::CenterOfGravity()
 {
 	double sum_of_radiuses = 0;
@@ -14,7 +20,6 @@ double Polygon::CenterOfGravity()
 		double lenght_of_r_vector = sqrt(pow(vert[i].x, 2) + pow(vert[i].y, 2));
 
 		sum_of_radiuses += lenght_of_r_vector;
-
 	}
 
 	return sum_of_radiuses / num_of_vertexes;
