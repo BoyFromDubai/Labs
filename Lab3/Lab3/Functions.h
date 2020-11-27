@@ -2,20 +2,20 @@
 #include <iostream>
 
 template <typename T>
-T GetNumber(const char* message)
+T GetNumber(const char* message, std::istream& in)
 {
-	std::cout << "\nEnter " << message << std::endl << "> ";
-
 	T a{};
 
 	while (1)
 	{
-		if (std::cin >> a)
+		std::cout << "\nEnter " << message << std::endl << "> ";
+
+		if (in >> a)
 			break;
 
-		std::cin.clear();
+		in.clear();
 
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		std::cout << "Try again!\n";
 	}

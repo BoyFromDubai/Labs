@@ -1,4 +1,4 @@
-#include "Polygon.h"
+#include "PolygonStatic.h"
 
 #include <cmath>
 #include <stdexcept>
@@ -25,27 +25,49 @@ double Polygon::CenterOfGravity()
 	return sum_of_radiuses / num_of_vertexes;
 }
 
-void Polygon::AddNewVertex(double x, double y)
+std::ostream& operator << (std::ostream& out, const Polygon& p)
 {
-	vert[num_of_vertexes].x = x;
-	vert[num_of_vertexes].y = y;
+	for (int i = 0; i < p.num_of_vertexes; i++)
+	{
+		out << "Values of " << i << " point: ";
+		out << p.vert[i].x << ", " << p.vert[i].y << std::endl;
+	}
 
-	num_of_vertexes++;
+	return out;
 }
 
-Vertex Polygon::GetValueOfVertex(int i)
+std::istream& operator >> (std::istream& in, Polygon& p)
 {
-	if (i < num_of_vertexes)
-		return { vert[i].x, vert[i].y };
+	Vertex v;
+
+	v.x = GetNumber<float>("x value", in);
+	v.y = GetNumber<float>("y value", in);
+
+	p += v;
+
+	std::cout << "\nNow you have " << p.GetNumOfVertexes();
+
+	if (p.GetNumOfVertexes() == 1)
+		std::cout << " vertex" << std::endl;
+	else
+		std::cout << " vertexes" << std::endl;
+
+	return in;
+}
+
+Vertex Polygon::operator[](const int index)
+{
+	if (index < num_of_vertexes)
+		return vert[index];
 
 	else if (!num_of_vertexes)
 		throw std::invalid_argument("There're no vertexes at all!");
 
-	else 
+	else
 		throw std::invalid_argument("There are less vertexes!");
 }
 
-void Polygon::Rotation(int angle, int pos)
+void Polygon::operator() (const int angle, const int pos)
 {
 	if (!(angle % 90) && pos < num_of_vertexes)
 	{
@@ -65,15 +87,6 @@ void Polygon::Rotation(int angle, int pos)
 	else if (angle % 90)
 		throw std::invalid_argument("An angle must be a multiple of 90!");
 
-	else 
+	else
 		throw std::invalid_argument("There're less vertexes");
-}
-
-void Polygon::MovingPolygon(double x, double y)
-{
-	for (int i = 0; i < num_of_vertexes; i++)
-	{
-		vert[i].x += x;
-		vert[i].y += y;
-	}
 }

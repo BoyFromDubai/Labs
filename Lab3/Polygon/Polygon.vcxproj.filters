@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Lab3\Polygon.cpp">
+    <ClCompile Include="..\Lab3\PolygonStatic.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Lab3\Polygon.h">
+    <ClInclude Include="..\Lab3\PolygonStatic.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

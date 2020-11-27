@@ -1,7 +1,7 @@
-#include "Polygon.h"
+#include "PolygonStatic.h"
 #include "Functions.h"
 
-#pragma comment (lib,"../lib/Polygon.lib")
+#pragma comment (lib,"../LibPolygonStatic/Polygon.lib")
 
 #include <iostream>
 
@@ -10,55 +10,45 @@ int main()
 	Polygon p;
 
 	int opt = 1,
-		existance_of_vetexes = 0;
+		existance_of_vertices = 0;
 
 	while (opt)
 	{
 		std::cout << "0) Exit" << std::endl;
 		std::cout << "1) Add new vertex" << std::endl;
 		
-		if (existance_of_vetexes)
+		if (existance_of_vertices)
 		{
 			std::cout << "2) Get value of centre of gravity of polygon" << std::endl;
 			std::cout << "3) Get coordinates of the vertex" << std::endl;
 			std::cout << "4) Turn around the point" << std::endl;
 			std::cout << "5) Move the polygon" << std::endl;
+			std::cout << "6) Get values of all vertices" << std::endl;
 		}
 
-		opt = GetNumber<int>("option");
+		opt = GetNumber<int>("option", std::cin);
 
 		if (opt == 1)
 		{
-			float x = GetNumber<float>("x value"),
-				y = GetNumber<float>("y value");
+			std::cin >> p;
 
-			p.AddNewVertex(x, y);
-
-
-			std::cout << "\nNow you have " << p.GetNumOfVertexes();
-
-			if (p.GetNumOfVertexes() == 1)
-				std::cout << " vertex" << std::endl;
-			else
-				std::cout << " vertexes" << std::endl;
-
-			existance_of_vetexes = 1;
+			existance_of_vertices = 1;
 		}
 
-		else if (opt == 2 && existance_of_vetexes)
+		else if (opt == 2 && existance_of_vertices)
 		{
 			std::cout << "Center of gravity value is " << p.CenterOfGravity() << std::endl;
 		}
 
-		else if (opt == 3 && existance_of_vetexes)
+		else if (opt == 3 && existance_of_vertices)
 		{
-			int pos = GetNumber<int>("position");
+			int pos = GetNumber<int>("position", std::cin);
 
 			try
 			{
-				auto [x, y] = p.GetValueOfVertex(pos);
+				Vertex v = p[pos];
 
-				std::cout << "\n" << pos << " element\n" << "\nValue x is " << x << std::endl << "Value y is " << y << "\n " << std::endl;
+				std::cout << "\n" << pos << " element\n" << "\nValue x is " << v.x << std::endl << "Value y is " << v.y << "\n " << std::endl;
 			}
 
 			catch (const std::exception& a)
@@ -67,14 +57,14 @@ int main()
 			}
 		}
 
-		else if (opt == 4 && existance_of_vetexes)
+		else if (opt == 4 && existance_of_vertices)
 		{
-			int pos = GetNumber<int>("position"),
-				angle = GetNumber<int>("angle");
+			int pos = GetNumber<int>("position", std::cin),
+				angle = GetNumber<int>("angle", std::cin);
 
 			try
 			{
-				p.Rotation(angle, pos);
+				p(angle, pos);
 			}
 
 			catch (const std::exception& a)
@@ -83,14 +73,19 @@ int main()
 			}
 		}
 
-		else if (opt == 5 && existance_of_vetexes)
+		else if (opt == 5 && existance_of_vertices)
 		{
 			std::cout << "Enter values of x and y to move your polygon" << std::endl;
 
-			float move_x = GetNumber<float>("value x"),
-				move_y = GetNumber<float>("value y");
+			double x = GetNumber<double>("value x", std::cin),
+				y = GetNumber<double>("value y", std::cin);
 
-			p.MovingPolygon(move_x, move_y);
+			p(x, y);
+		}
+
+		else if (opt == 6 && existance_of_vertices)
+		{
+			std::cout << p;
 		}
 
 		else if (opt)

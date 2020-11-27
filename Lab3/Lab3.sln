@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test3", "Test3\Test3\Test3.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Polygon", "Polygon\Polygon.vcxproj", "{31EB1DFD-90A0-439D-ABA0-780D84A89396}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibPolygonDynamic", "LibPolygonDynamic\LibPolygonDynamic.vcxproj", "{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{31EB1DFD-90A0-439D-ABA0-780D84A89396}.Release|x64.Build.0 = Release|x64
 		{31EB1DFD-90A0-439D-ABA0-780D84A89396}.Release|x86.ActiveCfg = Release|Win32
 		{31EB1DFD-90A0-439D-ABA0-780D84A89396}.Release|x86.Build.0 = Release|Win32
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Debug|x64.ActiveCfg = Debug|x64
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Debug|x64.Build.0 = Debug|x64
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Debug|x86.ActiveCfg = Debug|Win32
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Debug|x86.Build.0 = Debug|Win32
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Release|x64.ActiveCfg = Release|x64
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Release|x64.Build.0 = Release|x64
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Release|x86.ActiveCfg = Release|Win32
+		{01828D7F-6F02-4E78-B03F-E20DD4ABFD9D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
