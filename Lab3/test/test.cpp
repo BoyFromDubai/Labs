@@ -1,7 +1,8 @@
-#include "pch.h"
-#include "../../Lab3/PolygonStatic.h"
+#include "gtest/gtest.h"
 
-#pragma comment (lib,"../../LibPolygonStatic/Polygon.lib")
+#include "../src/StaticPolygon/PolygonStatic.h"
+
+#pragma comment (lib,"../../lib/StaticPolygon.lib")
 
 struct PolygonTest : testing::Test
 {

@@ -1,7 +1,6 @@
 #include "PolygonStatic.h"
-#include "Functions.h"
 
-#pragma comment (lib,"../LibPolygonStatic/Polygon.lib")
+#pragma comment (lib,"../../lib/StaticPolygon.lib")
 
 #include <iostream>
 

@@ -1,11 +1,11 @@
 #pragma once
-#include "Functions.h"
+#include "..\Functions.h"
 #define SIZE 1000
 
 struct Vertex
 {
 	double x,
-		  y;
+		y;
 };
 
 class Polygon
