@@ -1,6 +1,5 @@
 #pragma once
 #include "..\Functions.h"
-#define SIZE 1000
 
 struct Vertex
 {
@@ -11,28 +10,30 @@ struct Vertex
 class Polygon
 {
 private:
-	int num_of_vertexes;
+	int num_of_vertices,
+		cur_size;
 
-	Vertex vert[SIZE];
+	Vertex* vert;
 
 public:
 
 	Polygon() :
-		num_of_vertexes{},
+		num_of_vertices{},
+		cur_size{},
 		vert{}
 	{}
 
-	void operator += (Vertex v)
+	~Polygon() 
 	{
-		vert[num_of_vertexes] = v;
-
-		num_of_vertexes++;
+		delete[] vert;
 	}
 
-	explicit Polygon(const Vertex v) :
-		num_of_vertexes{ 1 },
+	void operator += (Vertex);
+
+	/*explicit Polygon(const Vertex v) :
+		num_of_vertices{ 1 },
 		vert{ v }
-	{}
+	{}*/
 
 	friend std::ostream& operator << (std::ostream&, const Polygon&);
 
@@ -40,7 +41,7 @@ public:
 
 	void operator () (const double x, const double y)
 	{
-		for (int i = 0; i < num_of_vertexes; i++)
+		for (int i = 0; i < num_of_vertices; i++)
 		{
 			vert[i].x += x;
 			vert[i].y += y;
@@ -55,12 +56,7 @@ public:
 
 	double CenterOfGravity();
 
-	void AddNewVertex(const Vertex v)
-	{
-		vert[num_of_vertexes] = v;
+	void AddNewVertex(const Vertex);
 
-		num_of_vertexes++;
-	}
-
-	int GetNumOfVertexes() { return num_of_vertexes; }
+	int GetNumOfVertexes() { return num_of_vertices; }
 };

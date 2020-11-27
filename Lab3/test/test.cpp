@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../src/StaticPolygon/PolygonStatic.h"
+#include "../src/StaticPolygon/StaticPolygon.h"
 
 #pragma comment (lib,"../../lib/StaticPolygon.lib")
 

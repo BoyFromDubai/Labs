@@ -1,4 +1,4 @@
-#include "PolygonStatic.h"
+#include "StaticPolygon.h"
 
 #include <cmath>
 #include <stdexcept>
@@ -15,19 +15,19 @@ double Polygon::CenterOfGravity()
 {
 	double sum_of_radiuses = 0;
 
-	for (int i = 0; i < num_of_vertexes; i++)
+	for (int i = 0; i < num_of_vertices; i++)
 	{
 		double lenght_of_r_vector = sqrt(pow(vert[i].x, 2) + pow(vert[i].y, 2));
 
 		sum_of_radiuses += lenght_of_r_vector;
 	}
 
-	return sum_of_radiuses / num_of_vertexes;
+	return sum_of_radiuses / num_of_vertices;
 }
 
 std::ostream& operator << (std::ostream& out, const Polygon& p)
 {
-	for (int i = 0; i < p.num_of_vertexes; i++)
+	for (int i = 0; i < p.num_of_vertices; i++)
 	{
 		out << "Values of " << i << " point: ";
 		out << p.vert[i].x << ", " << p.vert[i].y << std::endl;
@@ -57,10 +57,10 @@ std::istream& operator >> (std::istream& in, Polygon& p)
 
 Vertex Polygon::operator[](const int index)
 {
-	if (index < num_of_vertexes)
+	if (index < num_of_vertices)
 		return vert[index];
 
-	else if (!num_of_vertexes)
+	else if (!num_of_vertices)
 		throw std::invalid_argument("There're no vertexes at all!");
 
 	else
@@ -69,9 +69,9 @@ Vertex Polygon::operator[](const int index)
 
 void Polygon::operator() (const int angle, const int pos)
 {
-	if (!(angle % 90) && pos < num_of_vertexes)
+	if (!(angle % 90) && pos < num_of_vertices)
 	{
-		for (int i = 0; i < num_of_vertexes; i++)
+		for (int i = 0; i < num_of_vertices; i++)
 		{
 			if (i != pos)
 			{

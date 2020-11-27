@@ -5,6 +5,39 @@
 
 #define PI 3.14159265358979323846
 
+void Polygon::AddNewVertex(const Vertex v)
+{
+	if (num_of_vertices == cur_size)
+	{	
+		cur_size++;
+
+		cur_size *= 2;
+
+		Vertex* new_v = new Vertex[cur_size];
+
+		for (int i = 0; i < num_of_vertices; i++)
+		{
+			new_v[i] = vert[i];
+		}
+
+		new_v[num_of_vertices] = v;
+
+		delete[] vert;
+
+		vert = new_v;
+
+		num_of_vertices++;
+	}
+
+	else
+	{
+		vert[num_of_vertices] = v;
+
+		num_of_vertices++;
+	}
+
+}
+
 Polygon::Polygon(const size_t num, const Vertex vertices[])
 {
 	for (int i = 0; i < num; i++)
@@ -15,19 +48,19 @@ double Polygon::CenterOfGravity()
 {
 	double sum_of_radiuses = 0;
 
-	for (int i = 0; i < num_of_vertexes; i++)
+	for (int i = 0; i < num_of_vertices; i++)
 	{
 		double lenght_of_r_vector = sqrt(pow(vert[i].x, 2) + pow(vert[i].y, 2));
 
 		sum_of_radiuses += lenght_of_r_vector;
 	}
 
-	return sum_of_radiuses / num_of_vertexes;
+	return sum_of_radiuses / num_of_vertices;
 }
 
 std::ostream& operator << (std::ostream& out, const Polygon& p)
 {
-	for (int i = 0; i < p.num_of_vertexes; i++)
+	for (int i = 0; i < p.num_of_vertices; i++)
 	{
 		out << "Values of " << i << " point: ";
 		out << p.vert[i].x << ", " << p.vert[i].y << std::endl;
@@ -57,21 +90,26 @@ std::istream& operator >> (std::istream& in, Polygon& p)
 
 Vertex Polygon::operator[](const int index)
 {
-	if (index < num_of_vertexes)
+	if (index < num_of_vertices)
 		return vert[index];
 
-	else if (!num_of_vertexes)
+	else if (!num_of_vertices)
 		throw std::invalid_argument("There're no vertexes at all!");
 
 	else
 		throw std::invalid_argument("There are less vertexes!");
 }
 
+void Polygon::operator += (Vertex v)
+{
+	AddNewVertex(v);
+}
+
 void Polygon::operator() (const int angle, const int pos)
 {
-	if (!(angle % 90) && pos < num_of_vertexes)
+	if (!(angle % 90) && pos < num_of_vertices)
 	{
-		for (int i = 0; i < num_of_vertexes; i++)
+		for (int i = 0; i < num_of_vertices; i++)
 		{
 			if (i != pos)
 			{

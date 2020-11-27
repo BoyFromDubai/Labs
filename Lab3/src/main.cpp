@@ -1,6 +1,8 @@
-#include "PolygonStatic.h"
+//#include "StaticPolygon/StaticPolygon.h"
+#include "DynamicPolygon/DynamicPolygon.h"
 
-#pragma comment (lib,"../../lib/StaticPolygon.lib")
+//#pragma comment (lib,"../../lib/StaticPolygon.lib")
+#pragma comment (lib,"../../lib/DynamicPolygon.lib")
 
 #include <iostream>
 

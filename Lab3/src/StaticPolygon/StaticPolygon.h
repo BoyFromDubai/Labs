@@ -11,26 +11,26 @@ struct Vertex
 class Polygon
 {
 private:
-	int num_of_vertexes;
+	int num_of_vertices;
 
 	Vertex vert[SIZE];
 
 public:
 
 	Polygon() :
-		num_of_vertexes{},
+		num_of_vertices{},
 		vert{}
 	{}
 
 	void operator += (Vertex v)
 	{
-		vert[num_of_vertexes] = v;
+		vert[num_of_vertices] = v;
 
-		num_of_vertexes++;
+		num_of_vertices++;
 	}
 
 	explicit Polygon(const Vertex v) :
-		num_of_vertexes{ 1 },
+		num_of_vertices{ 1 },
 		vert{ v }
 	{}
 
@@ -40,7 +40,7 @@ public:
 
 	void operator () (const double x, const double y)
 	{
-		for (int i = 0; i < num_of_vertexes; i++)
+		for (int i = 0; i < num_of_vertices; i++)
 		{
 			vert[i].x += x;
 			vert[i].y += y;
@@ -57,10 +57,10 @@ public:
 
 	void AddNewVertex(const Vertex v)
 	{
-		vert[num_of_vertexes] = v;
+		vert[num_of_vertices] = v;
 
-		num_of_vertexes++;
+		num_of_vertices++;
 	}
 
-	int GetNumOfVertexes() { return num_of_vertexes; }
+	int GetNumOfVertexes() { return num_of_vertices; }
 };

@@ -140,10 +140,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\StaticPolygon\PolygonStatic.cpp" />
+    <ClCompile Include="..\..\src\StaticPolygon\StaticPolygon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\StaticPolygon\PolygonStatic.h" />
+    <ClInclude Include="..\..\src\StaticPolygon\StaticPolygon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
