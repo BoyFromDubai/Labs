@@ -1,8 +1,10 @@
-//#include "StaticPolygon/StaticPolygon.h"
-#include "DynamicPolygon/DynamicPolygon.h"
+#include "Functions.h"
 
-//#pragma comment (lib,"../../lib/StaticPolygon.lib")
-#pragma comment (lib,"../../lib/DynamicPolygon.lib")
+#include "StaticPolygon/StaticPolygon.h"
+//#include "DynamicPolygon/DynamicPolygon.h"
+
+#pragma comment (lib,"../../lib/StaticPolygon.lib")
+//#pragma comment (lib,"../../lib/DynamicPolygon.lib")
 
 #include <iostream>
 
@@ -27,7 +29,7 @@ int main()
 			std::cout << "6) Get values of all vertices" << std::endl;
 		}
 
-		opt = GetNumber<int>("option", std::cin);
+		opt = GetNumber<int>("option");
 
 		if (opt == 1)
 		{
@@ -43,7 +45,7 @@ int main()
 
 		else if (opt == 3 && existance_of_vertices)
 		{
-			int pos = GetNumber<int>("position", std::cin);
+			int pos = GetNumber<int>("position");
 
 			try
 			{
@@ -60,8 +62,8 @@ int main()
 
 		else if (opt == 4 && existance_of_vertices)
 		{
-			int pos = GetNumber<int>("position", std::cin),
-				angle = GetNumber<int>("angle", std::cin);
+			int pos = GetNumber<int>("position"),
+				angle = GetNumber<int>("angle");
 
 			try
 			{
@@ -78,8 +80,8 @@ int main()
 		{
 			std::cout << "Enter values of x and y to move your polygon" << std::endl;
 
-			double x = GetNumber<double>("value x", std::cin),
-				y = GetNumber<double>("value y", std::cin);
+			double x = GetNumber<double>("value x"),
+				y = GetNumber<double>("value y");
 
 			p(x, y);
 		}

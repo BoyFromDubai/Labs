@@ -2,13 +2,13 @@
 #include <iostream>
 
 template <typename T>
-T GetNumber(const char* message, std::istream& in)
+T GetNumber(const char* message, std::istream& in = std::cin, std::ostream& out = std::cout)
 {
 	T a{};
 
 	while (1)
 	{
-		std::cout << "\nEnter " << message << std::endl << "> ";
+		out << "\nEnter " << message << std::endl << "> ";
 
 		if (in >> a)
 			break;
@@ -17,7 +17,7 @@ T GetNumber(const char* message, std::istream& in)
 
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		std::cout << "Try again!\n";
+		out << "Try again!\n";
 	}
 
 	return a;

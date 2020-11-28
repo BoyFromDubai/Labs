@@ -1,4 +1,5 @@
 #include "DynamicPolygon.h"
+#include "..\Functions.h"
 
 #include <cmath>
 #include <stdexcept>
@@ -38,13 +39,13 @@ void Polygon::AddNewVertex(const Vertex v)
 
 }
 
-Polygon::Polygon(const size_t num, const Vertex vertices[])
+Polygon::Polygon(const size_t num, const Vertex vertices[]) : Polygon()
 {
 	for (int i = 0; i < num; i++)
 		AddNewVertex(vertices[i]);
 }
 
-double Polygon::CenterOfGravity()
+double Polygon::CenterOfGravity() const
 {
 	double sum_of_radiuses = 0;
 
@@ -78,53 +79,33 @@ std::istream& operator >> (std::istream& in, Polygon& p)
 
 	p += v;
 
-	std::cout << "\nNow you have " << p.GetNumOfVertexes();
-
-	if (p.GetNumOfVertexes() == 1)
-		std::cout << " vertex" << std::endl;
-	else
-		std::cout << " vertexes" << std::endl;
-
 	return in;
 }
 
-Vertex Polygon::operator[](const int index)
+const Vertex& Polygon::operator[](const int index) const
 {
-	if (index < num_of_vertices)
-		return vert[index];
+	if (index < 0 || index >= num_of_vertices)
+		throw std::invalid_argument("[ERROR]!");
 
-	else if (!num_of_vertices)
-		throw std::invalid_argument("There're no vertexes at all!");
-
-	else
-		throw std::invalid_argument("There are less vertexes!");
+	return vert[index];
 }
 
-void Polygon::operator += (Vertex v)
+Polygon& Polygon::operator() (const int angle, const int pos)
 {
-	AddNewVertex(v);
-}
+	if (angle < 0 || pos < 0 || pos > num_of_vertices || angle % 90)
+		throw std::invalid_argument("[ERROR]");
 
-void Polygon::operator() (const int angle, const int pos)
-{
-	if (!(angle % 90) && pos < num_of_vertices)
+	for (int i = 0; i < num_of_vertices; i++)
 	{
-		for (int i = 0; i < num_of_vertices; i++)
+		if (i != pos)
 		{
-			if (i != pos)
-			{
-				Vertex point = vert[pos];
+			Vertex point = vert[pos];
 
-				vert[i].x = (vert[i].x - point.x) * cos(angle * PI / 180) - (vert[i].y - point.y) * sin(angle * PI / 180) + point.x;
+			vert[i].x = (vert[i].x - point.x) * cos(angle * PI / 180) - (vert[i].y - point.y) * sin(angle * PI / 180) + point.x;
 
-				vert[i].y = (vert[i].x - point.x) * sin(angle * PI / 180) + (vert[i].y - point.y) * cos(angle * PI / 180) + point.y;
-			}
+			vert[i].y = (vert[i].x - point.x) * sin(angle * PI / 180) + (vert[i].y - point.y) * cos(angle * PI / 180) + point.y;
 		}
 	}
 
-	else if (angle % 90)
-		throw std::invalid_argument("An angle must be a multiple of 90!");
-
-	else
-		throw std::invalid_argument("There're less vertexes");
+	return *this;
 }

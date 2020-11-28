@@ -1,5 +1,6 @@
 #pragma once
-#include "..\Functions.h"
+
+#include <iosfwd>
 
 struct Vertex
 {
@@ -23,40 +24,51 @@ public:
 		vert{}
 	{}
 
+	Polygon(const size_t, const Vertex[]);
+
+	explicit Polygon(const Vertex v) :
+		Polygon()
+	{
+		AddNewVertex(v);
+	}
+
 	~Polygon() 
 	{
 		delete[] vert;
 	}
 
-	void operator += (Vertex);
+	Polygon& operator += (Vertex v)
+	{
+		AddNewVertex(v);
 
-	/*explicit Polygon(const Vertex v) :
-		num_of_vertices{ 1 },
-		vert{ v }
-	{}*/
+		return *this;
+	}
 
 	friend std::ostream& operator << (std::ostream&, const Polygon&);
 
 	friend std::istream& operator >> (std::istream&, Polygon&);
 
-	void operator () (const double x, const double y)
+	Polygon& operator () (const double x, const double y)
 	{
 		for (int i = 0; i < num_of_vertices; i++)
 		{
 			vert[i].x += x;
 			vert[i].y += y;
 		}
+
+		return *this;
 	}
 
-	void operator () (const int, const int);
+	Polygon& operator () (const int, const int);
 
-	Vertex operator [] (const int);
+	const Vertex& operator [] (const int) const;
 
-	Polygon(const size_t, const Vertex[]);
 
-	double CenterOfGravity();
+	double CenterOfGravity() const;
 
 	void AddNewVertex(const Vertex);
 
-	int GetNumOfVertexes() { return num_of_vertices; }
+	int GetNumOfVertexes() const { return num_of_vertices; }
+
+	const Vertex* GetVertexPointer() const { return vert; }
 };
