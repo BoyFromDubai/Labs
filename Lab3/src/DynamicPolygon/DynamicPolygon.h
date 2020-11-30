@@ -69,6 +69,4 @@ public:
 	void AddNewVertex(const Vertex);
 
 	int GetNumOfVertexes() const { return num_of_vertices; }
-
-	const Vertex* GetVertexPointer() const { return vert; }
 };

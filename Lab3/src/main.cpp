@@ -24,7 +24,7 @@ int main()
 		{
 			std::cout << "2) Get value of centre of gravity of polygon" << std::endl;
 			std::cout << "3) Get coordinates of the vertex" << std::endl;
-			std::cout << "4) Turn around the point" << std::endl;
+			std::cout << "4) Rotate around the point" << std::endl;
 			std::cout << "5) Move the polygon" << std::endl;
 			std::cout << "6) Get values of all vertices" << std::endl;
 		}

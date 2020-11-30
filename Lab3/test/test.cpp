@@ -1,8 +1,10 @@
 #include "gtest/gtest.h"
 
 #include "../src/StaticPolygon/StaticPolygon.h"
+//#include "../src//DynamicPolygon/DynamicPolygon.h"
 
 #pragma comment (lib,"../../lib/StaticPolygon.lib")
+//#pragma comment (lib,"../../lib/DynamicPolygon.lib")
 
 struct PolygonTest : testing::Test
 {
@@ -66,18 +68,6 @@ TEST_F(PolygonTest, RotationTest)
 	EXPECT_FLOAT_EQ(test_point.x, -1);
 	
 	EXPECT_FLOAT_EQ(test_point.y, -1);
-}
-
-TEST_F(PolygonTest, RotationExceptionAngleTest)
-{
-	for (int i = 0; i < 2; i++)
-	{
-		Vertex v = { i , i };
-		
-		c += v;
-	}
-
-	EXPECT_THROW(c(93, 0), std::invalid_argument);
 }
 
 TEST_F(PolygonTest, RotationExceptionPosTest)

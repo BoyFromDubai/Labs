@@ -92,7 +92,7 @@ const Vertex& Polygon::operator[](const int index) const
 
 Polygon& Polygon::operator() (const int angle, const int pos)
 {
-	if (angle < 0 || pos < 0 || pos > num_of_vertices || angle % 90)
+	if (angle < 0 || pos < 0 || pos >= num_of_vertices || angle % 90)
 		throw std::invalid_argument("[ERROR]");
 
 	for (int i = 0; i < num_of_vertices; i++)
