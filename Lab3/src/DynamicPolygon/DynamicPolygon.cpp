@@ -17,9 +17,7 @@ void Polygon::AddNewVertex(const Vertex v)
 		Vertex* new_v = new Vertex[cur_size];
 
 		for (int i = 0; i < num_of_vertices; i++)
-		{
 			new_v[i] = vert[i];
-		}
 
 		new_v[num_of_vertices] = v;
 
@@ -39,10 +37,39 @@ void Polygon::AddNewVertex(const Vertex v)
 
 }
 
-Polygon::Polygon(const size_t num, const Vertex vertices[]) : Polygon()
+Polygon::Polygon(const size_t num, const Vertex vertices[]) :
+	Polygon()
 {
 	for (int i = 0; i < num; i++)
 		AddNewVertex(vertices[i]);
+}
+
+Polygon::Polygon(const Polygon& copy) :
+	cur_size{ copy.cur_size },
+	num_of_vertices{ copy.num_of_vertices },
+	vert{ new Vertex[cur_size] }
+{
+	for (int i = 0; i < num_of_vertices; i++)
+		vert[i] = copy.vert[i];
+}
+
+Polygon& Polygon::operator = (const Polygon& object)
+{
+	if (this != &object)
+	{
+		delete[] vert;
+
+		cur_size = object.cur_size;
+
+		num_of_vertices = object.num_of_vertices;
+
+		vert = new Vertex[cur_size];
+
+		for (int i = 0; i < num_of_vertices; i++)
+			vert[i] = object.vert[i];
+	}
+
+	return *this;
 }
 
 double Polygon::CenterOfGravity() const

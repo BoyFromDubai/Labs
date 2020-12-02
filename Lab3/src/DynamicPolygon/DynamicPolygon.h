@@ -32,17 +32,16 @@ public:
 		AddNewVertex(v);
 	}
 
+	Polygon(const Polygon&);
+
 	~Polygon() 
 	{
 		delete[] vert;
 	}
 
-	Polygon& operator += (Vertex v)
-	{
-		AddNewVertex(v);
+	Polygon& operator += (Vertex v) { AddNewVertex(v); return *this; }
 
-		return *this;
-	}
+	Polygon& operator = (const Polygon&);
 
 	friend std::ostream& operator << (std::ostream&, const Polygon&);
 
@@ -53,6 +52,7 @@ public:
 		for (int i = 0; i < num_of_vertices; i++)
 		{
 			vert[i].x += x;
+
 			vert[i].y += y;
 		}
 
@@ -62,7 +62,6 @@ public:
 	Polygon& operator () (const int, const int);
 
 	const Vertex& operator [] (const int) const;
-
 
 	double CenterOfGravity() const;
 

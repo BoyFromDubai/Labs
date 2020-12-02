@@ -1,10 +1,20 @@
 #include "Functions.h"
 
+#define STATIC_LIB 
+
+#ifdef STATIC_LIB
+
 #include "StaticPolygon/StaticPolygon.h"
-//#include "DynamicPolygon/DynamicPolygon.h"
 
 #pragma comment (lib,"../../lib/StaticPolygon.lib")
-//#pragma comment (lib,"../../lib/DynamicPolygon.lib")
+
+#else // !STATIC_LIB
+
+#include "DynamicPolygon/DynamicPolygon.h"
+
+#pragma comment (lib,"../../lib/DynamicPolygon.lib")
+
+#endif // STATIC_LIB
 
 #include <iostream>
 

@@ -1,10 +1,6 @@
 #include "gtest/gtest.h"
 
 #include "../src/StaticPolygon/StaticPolygon.h"
-//#include "../src//DynamicPolygon/DynamicPolygon.h"
-
-#pragma comment (lib,"../../lib/StaticPolygon.lib")
-//#pragma comment (lib,"../../lib/DynamicPolygon.lib")
 
 struct PolygonTest : testing::Test
 {
