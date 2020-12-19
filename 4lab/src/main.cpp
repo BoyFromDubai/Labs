@@ -56,6 +56,7 @@ int main()
 
 			while (cur != end)
 			{
+				cur->second->AddMoney(months);
 
 				if (auto cur_dep = dynamic_cast<const TermDeposit*>(cur->second))
 				{
@@ -63,30 +64,32 @@ int main()
 
 					if (cl_date.year < cur_date.year)
 					{
+						std::cout << "\nTime is up and " << cur->first << " account was closed and money was paid off" << std::endl;
+
 						map_dep.erase(cur++);
 
-						std::cout << "\nAccount was found and closed" << std::endl;
-						
 						continue;
 					}
-					
+
 					if (cl_date.year == cur_date.year && cl_date.month < cur_date.month)
 					{
-						map_dep.erase(cur++);
+						std::cout << "\nTime is up and " << cur->first << " account was closed and money was paid off" << std::endl;
 
-						std::cout << "\nAccount was found and closed" << std::endl;
+						map_dep.erase(cur++);
 
 						continue;
 					}
 
 					if (cl_date.year == cur_date.year && cl_date.month == cur_date.month && cl_date.day < cur_date.day)
 					{
-						map_dep.erase(cur++);
+						std::cout << "\nTime is up and " << cur->first << " account was closed and money was paid off" << std::endl;
 
-						std::cout << "\nAccount was found and closed" << std::endl;
+						map_dep.erase(cur++);
 
 						continue;
 					}
+
+					cur++;
 				}
 
 				else
@@ -200,7 +203,58 @@ int main()
 
 		else if (opt == 4)
 		{
+			int pos = GetNumber<int>("account number");
 
+			auto it = map_dep.find(pos);
+
+
+			if (it != map_dep.end())
+			{
+				std::cout << "\n" << it->first << " - NUMBER OF DEPOSIT\n" << it->second->GetSum() << " - Current sum\n";
+				std::cout << it->second->GetOpDate() << " - Date of opening the deposit\n";
+				std::cout << it->second->GetLastTransDate() << " - Date of last transaction\n";
+				std::cout << it->second->GetPercentage() << "% - Percentage\n";
+
+				if (auto cur_dep = dynamic_cast<const CurrencyDeposit*>(it->second))
+				{
+					std::cout << cur_dep->GetCurrName() << " - Currency name" << "\n";
+					std::cout << cur_dep->ConvertToRubles() << " - Sum in rubles" << "\n";
+					std::cout << cur_dep->GetExchRate() << " rubles - Exchange rate" << "\n";
+				}
+
+				if (auto cur_dep = dynamic_cast<const TermDeposit*>(it->second))
+				{
+					std::cout << cur_dep->GetAccClDate() << " - Date of closing account" << "\n";
+				}
+			}
+			/*auto cur = map_dep.begin();
+			auto end = map_dep.end();
+
+			for (const auto& [key, value] : map_dep)
+			{
+				if (key == pos)
+				{
+					if (!value)
+						continue;
+
+					std::cout << "\n" << key << " - NUMBER OF DEPOSIT\n" << value->GetSum() << " - Current sum\n";
+					std::cout << value->GetOpDate() << " - Date of opening the deposit\n";
+					std::cout << value->GetLastTransDate() << " - Date of last transaction\n";
+					std::cout << value->GetPercentage() << "% - Percentage\n";
+
+					if (auto cur_dep = dynamic_cast<const CurrencyDeposit*>(value))
+					{
+						std::cout << cur_dep->GetCurrName() << " - Currency name" << "\n";
+						std::cout << cur_dep->ConvertToRubles() << " - Sum in rubles" << "\n";
+						std::cout << cur_dep->GetExchRate() << " rubles - Exchange rate" << "\n";
+					}
+
+					if (auto cur_dep = dynamic_cast<const TermDeposit*>(value))
+					{
+						std::cout << cur_dep->GetAccClDate() << " - Date of closing account" << "\n";
+					}
+				}
+			}*/
 		}
 
 		else if (opt == 5)
@@ -218,6 +272,7 @@ int main()
 				if (auto cur_dep = dynamic_cast<const CurrencyDeposit*>(value))
 				{
 					std::cout << cur_dep->GetCurrName() << " - Currency name" << "\n";
+					std::cout << cur_dep->ConvertToRubles() << " - Sum in rubles" << "\n";
 					std::cout << cur_dep->GetExchRate() << " rubles - Exchange rate" << "\n";
 				}
 
@@ -243,7 +298,7 @@ int main()
 
 					std::cout << "\nAccount was found and closed" << std::endl;
 
-					break;;
+					break;
 				}
 
 				else
@@ -256,6 +311,12 @@ int main()
 
 		std::cout << "\n"<< cur_date << "\n\n";
 	}
+
+	auto cur = map_dep.begin(),
+		end = map_dep.end();
+
+	while (cur != end)
+		map_dep.erase(cur++);
 
 	return 0;
 }

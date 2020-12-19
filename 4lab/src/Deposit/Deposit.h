@@ -40,6 +40,7 @@ public:
 
 	virtual ~Deposit() = default;
 
+	void AddMoney(int months) { cur_sum *= 1 + percentage_of_accural / 100 * months / 12; }
 
 	void ChangeLastTransDate(const Date date) { last_transaction_date = date; }
 
