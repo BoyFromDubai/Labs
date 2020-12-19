@@ -53,6 +53,16 @@ Polygon::Polygon(const Polygon& copy) :
 		vert[i] = copy.vert[i];
 }
 
+Polygon::Polygon(Polygon&& a) :
+	cur_size{ a.cur_size },
+	num_of_vertices{ a.num_of_vertices },
+	vert{ a.vert }
+{
+	a.cur_size = 0;
+	a.num_of_vertices = 0;
+	a.vert = nullptr;
+}
+
 Polygon& Polygon::operator = (const Polygon& object)
 {
 	if (this != &object)
@@ -68,6 +78,28 @@ Polygon& Polygon::operator = (const Polygon& object)
 		for (int i = 0; i < num_of_vertices; i++)
 			vert[i] = object.vert[i];
 	}
+
+	return *this;
+}
+
+Polygon& Polygon::operator = (Polygon&& object)
+{
+	Vertex* add_vert = vert;
+
+	int add_size = cur_size,
+		add_num = num_of_vertices;
+
+	vert = object.vert;
+
+	cur_size = object.cur_size;
+
+	num_of_vertices = object.num_of_vertices;
+
+	object.vert = add_vert;
+
+	object.cur_size = add_size;
+
+	object.num_of_vertices = add_num;
 
 	return *this;
 }

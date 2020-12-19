@@ -10,6 +10,7 @@ struct Vertex
 
 class Polygon
 {
+
 private:
 	int num_of_vertices,
 		cur_size;
@@ -34,12 +35,16 @@ public:
 
 	Polygon(const Polygon&);
 
+	Polygon(Polygon&&);
+
 	~Polygon() 
 	{
 		delete[] vert;
 	}
 
-	Polygon& operator += (Vertex v) { AddNewVertex(v); return *this; }
+	Polygon& operator += (Vertex v) { AddNewVertex(v); return *this; }	
+	
+	Polygon& operator = (Polygon&&);
 
 	Polygon& operator = (const Polygon&);
 
