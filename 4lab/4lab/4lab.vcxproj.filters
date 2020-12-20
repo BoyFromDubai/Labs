@@ -23,5 +23,8 @@
     <ClInclude Include="..\src\Functions.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="MyVector.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

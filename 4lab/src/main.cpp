@@ -3,8 +3,6 @@
 #include "Functions.h"
 #include "Deposit\Deposit.h"
 
-#include <map>
-
 #pragma comment (lib, "../lib/Deposit.lib")
 
 int main()
@@ -12,8 +10,9 @@ int main()
 	Date cur_date = { 1, 1, 2001 };
 
 	std::map<int, Deposit*> map_dep;
-	
-	std::string curr_name[] = { "Dollar", "Euro", "Franc" };
+
+	std::vector<std::string> currency;
+	std::vector<int> curr_rate;
 
 	int k = 10;
 
@@ -27,6 +26,7 @@ int main()
 		std::cout << "4 - Check info about deposit" << std::endl;
 		std::cout << "5 - Show all deposits" << std::endl;
 		std::cout << "6 - Close account" << std::endl;
+		std::cout << "7 - Add currency" << std::endl;
 		std::cout << "0 - Exit" << std::endl;
 
 		opt = GetNumber<int>("option");
@@ -39,7 +39,7 @@ int main()
 			int months = 0;
 
 			months = GetNumber<int>("the number of months you want to add");
-			
+
 			try
 			{
 				cur_date = ChangeTime(months, cur_date);
@@ -66,18 +66,21 @@ int main()
 
 			if (opt_dep == 1)
 			{
-				int pos = 5;
+				int pos = -1;
 
-				while (pos > 2 || pos < 0)
+				while (pos < 0 || pos >= currency.size())
 				{
-					std::cout << "\t0 - Dollar\n\t1 - Euro\n\t2 - Franc" << std::endl;
+					for (int i = 0; i < currency.size(); i++)
+					{
+						std::cout << "\t" << i << " - " << currency[i] << " " << curr_rate[i] << " rubles" << std::endl;
+					}
 
 					pos = GetNumber<int>("the number of currency");
-				} 
+				}
 
-				map_dep.emplace(k, new CurrencyDeposit(cur_date, sum, rand() % 10, (rand() + 132) % 100, curr_name[pos]));
+				map_dep.emplace(k, new CurrencyDeposit(cur_date, sum, rand() % 10, curr_rate[pos], currency[pos]));
 			}
-			
+
 			if (opt_dep == 2)
 			{
 				int year = GetNumber<int>("a year of closing this acc"),
@@ -97,7 +100,7 @@ int main()
 				}
 
 			}
-			
+
 			if (opt_dep == 3)
 			{
 				map_dep.emplace(k, new Deposit(cur_date, sum, rand() % 10));
@@ -140,7 +143,7 @@ int main()
 
 			else
 				std::cout << "\nDeposit was not found!" << std::endl;
-		} 
+		}
 
 		else if (opt == 4)
 		{
@@ -163,14 +166,22 @@ int main()
 		else if (opt == 6)
 		{
 			int key = GetNumber<int>("account number");
-			
+
 			map_dep.erase(key);
+		}
+
+		else if (opt == 7)
+		{
+			currency.push_back(GetNumber<std::string>("currency name"));
+
+			curr_rate.push_back((rand() + 132) % 100);
+
 		}
 
 		else
 			std::cout << "Try another option!\n";
 
-		std::cout << "\n"<< cur_date << "\n\n";
+		std::cout << "\n" << cur_date << "\n\n";
 	}
 
 	DeleteDeps(map_dep);

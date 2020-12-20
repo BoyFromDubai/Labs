@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Deposit/Deposit.h"
 #include <map>
+#include <vector>
 
 template <typename T>
 T GetNumber(const char* message, std::istream& in = std::cin, std::ostream& out = std::cout)
@@ -97,6 +98,53 @@ void ExpiredDep(std::map<int, Deposit*>& map_dep, int months, Date cur_date)
 
 		else
 			cur++;
+	}
+}
+
+void ExpiredDep(std::map<int, Deposit*>& map_dep, std::vector<Deposit*>& vector, int months, Date cur_date)
+{
+	/*auto cur = map_dep.begin();
+	auto end = map_dep.end();
+
+	while (cur != end)
+	{
+		cur->second->AddMoney(months);
+
+		if (auto cur_dep = dynamic_cast<const TermDeposit*>(cur->second))
+		{
+			Date cl_date = cur_dep->GetAccClDate();
+
+			if (cl_date.year < cur_date.year)
+			{
+				map_dep.erase(cur++);
+
+				continue;
+			}
+
+			if (cl_date.year == cur_date.year && cl_date.month < cur_date.month)
+			{
+				map_dep.erase(cur++);
+
+				continue;
+			}
+
+			if (cl_date.year == cur_date.year && cl_date.month == cur_date.month && cl_date.day < cur_date.day)
+			{
+				map_dep.erase(cur++);
+
+				continue;
+			}
+
+			cur++;
+		}
+
+		else
+			cur++;
+	}*/
+
+	for (int i = 0; i < vector.size(); i++)
+	{
+		vector.pop_back();
 	}
 }
 
