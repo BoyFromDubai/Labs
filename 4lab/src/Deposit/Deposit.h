@@ -40,21 +40,21 @@ public:
 
 	virtual ~Deposit() = default;
 
-	void AddMoney(int months) { cur_sum *= 1 + percentage_of_accural / 100 * months / 12; }
+	inline void AddMoney(int months) { cur_sum *= 1 + percentage_of_accural / 100 * months / 12; }
 
-	void ChangeLastTransDate(const Date date) { last_transaction_date = date; }
+	inline void ChangeLastTransDate(const Date date) { last_transaction_date = date; }
 
-	double GetSum() const { return cur_sum; }
+	inline double GetSum() const { return cur_sum; }
 
 	double CalculateSumByDate(const Date);
 
 	void ChangeCurSum(double, Date, char);
 
-	Date GetOpDate() const { return acc_op_date; }
+	inline Date GetOpDate() const { return acc_op_date; }
 	
-	Date GetLastTransDate() const { return last_transaction_date; }
+	inline Date GetLastTransDate() const { return last_transaction_date; }
 
-	double GetPercentage() const { return percentage_of_accural; }
+	inline double GetPercentage() const { return percentage_of_accural; }
 };
 
 class CurrencyDeposit : public Deposit
@@ -78,11 +78,11 @@ public:
 		exchange_rate{ ex_rate }
 	{}; 
 
-	double ConvertToRubles() const { return cur_sum * exchange_rate; }
+	inline double ConvertToRubles() const { return cur_sum * exchange_rate; }
 
-	std::string GetCurrName() const { return currency_name; }
+	inline std::string GetCurrName() const { return currency_name; }
 
-	double GetExchRate() const { return exchange_rate; }
+	inline double GetExchRate() const { return exchange_rate; }
 };
 
 class TermDeposit : public Deposit
@@ -102,5 +102,5 @@ public:
 		acc_cl_date{ cl_date }
 	{};
 
-	Date GetAccClDate() const { return acc_cl_date; }
+	inline Date GetAccClDate() const { return acc_cl_date; }
 };
