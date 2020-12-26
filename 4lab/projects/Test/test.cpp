@@ -1,17 +1,21 @@
 #include "pch.h"
 
 #include "../../src/Deposit/Deposit.h"
+#include"../../src/CLI.h"
 
 //#pragma comment (lib, "../../lib/Deposit.lib")
 
 struct DepositsTest : testing::Test
 {
-	Deposit c;
+	DepositCLI cli;
+
 };
 
 TEST_F(DepositsTest, DefaultConstructorTest)
 {
-	EXPECT_FLOAT_EQ(c.GetSum(), 0);
+	cli.AddDep(Date { 1, 1, 2001 }, 1, 1);
+
+	EXPECT_FLOAT_EQ(cli.CLI[3], 0);
 	
 	EXPECT_FLOAT_EQ(c.GetLastTransDate().day, 0);
 	EXPECT_FLOAT_EQ(c.GetLastTransDate().month, 0);

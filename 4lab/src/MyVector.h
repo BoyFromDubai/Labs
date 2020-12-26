@@ -3,56 +3,34 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <iostream>
 
 template <typename T>
 class MyVector
 {
 private:
     T* data;
-    int size;
-    int capacity;
+    size_t m_size;
+    size_t m_capacity;
 
 public:
-
-  /*  class iterator
-    {
-    private:
-        it;
-
-    public:
-
-        iterator()
-        {
-
-        }
-
-      T operator ++ ()
-
-
-    };*/
-
-    using iterator = T*;
-    using const_iterator = T*;
-    using allocator_type = T;
-
-
     MyVector() :
         data{ nullptr },
-        size{ 0 },
-        capacity{ 0 }
+        m_size{},
+        m_capacity{}
     {}
-    
+
     MyVector(int num)
     {
         if (num <= 0)
             throw std::exception("[ERROR]");
 
-        size = num;
-        capacity = num * 2;
+        m_size = num;
+        m_capacity = num * 2;
 
-        data = new T[sum];
+        data = new T[m_capacity];
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < m_size; i++)
         {
             data[i] = 0;
         }
@@ -63,12 +41,12 @@ public:
         if (num <= 0)
             throw std::exception("[ERROR]");
 
-        size = num;
-        capacity = num * 2;
+        m_size = num;
+        m_capacity = num * 2;
 
-        data = new T[num];
+        data = new T[m_capacity];
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < m_size; i++)
         {
             data[i] = info;
         }
@@ -76,25 +54,102 @@ public:
 
     ~MyVector()
     {
-        size = 0;
-        capacity = 0;
+        delete[] data;
+
+        m_size = 0;
+        m_capacity = 0;
     }
 
-    iterator& operator++ () { return data++; }
-    iterator& operator-- () { return data--; }
+    friend std::ostream& operator << (std::ostream& out, const MyVector& p)
+    {
+        return out;
+    }
 
-    const MyVector& operator[] (const int i) { return data[i]};
+    class iterator
+    {
+    private:
+        T* it;
 
-    inline typename iterator begin() { return data; }
+    public:
 
-    inline typename iterator end() { return data + size;  }
+        iterator() :
+            it{}
+        {}
 
+        iterator(T* cur) :
+            it{ cur }
+        {}
+
+        bool operator!= (const iterator& iter) const { return it != iter.it; }
+
+        iterator operator++(int) { return it++; }
+
+    };
+    /*
+    @return The 0 pos of array
+    */
+    iterator begin() const { return data; }
+    /*
+    @return 1 pos after last element
+    */
+    iterator end() const { return data + m_size; }
+
+    const T& operator[] (const int i) { return data[i]; };
+    /*
+    @return Get a position
+    */
+    T& at(int index)
+    {
+        if (index < 0 || index >(m_size - 1))
+            throw std::exception("[ERROR]");
+
+        else
+            return at[index];
+    }
+    /*
+        @brief Add an element
+    */
+    void push_back(T info)
+    {
+        if (m_capacity == m_size)
+        {
+            ++m_capacity *= 2;
+
+            T* new_data = new T[m_capacity];
+
+            for (size_t i = 0; i < m_size; i++)
+            {
+                new_data[i] = data[i];
+            }
+
+            delete[] data;
+
+            data = new_data;
+
+            data[m_size] = info;
+
+            m_size++;
+        }
+
+        else
+        {
+            data[m_size] = info;
+
+            m_size++;
+        }
+    }
+
+    /*
+        @brief delete an element
+    */
     void pop_back()
     {
-        if (!size)
+        if (!m_size)
             return;
 
-       
+        data[--m_size] = {};
     }
 
+    size_t size() const { return m_size; }
+    
 };

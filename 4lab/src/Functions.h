@@ -13,7 +13,7 @@ T GetNumber(const char* message, std::istream& in = std::cin, std::ostream& out 
 	{
 		out << "\nEnter " << message << std::endl << "> ";
 
-		if (in >> a )
+		if (in >> a)
 			break;
 
 		in.clear();
@@ -26,18 +26,18 @@ T GetNumber(const char* message, std::istream& in = std::cin, std::ostream& out 
 	return a;
 }
 
-Date ClDate(Date cur_date, int year, int month, int day)
+inline Date ClDate(Date cur_date, int year, int month, int day)
 {
 
 	if (cur_date.year > year || month < 0 || day < 0)
 		throw std::exception("Invalid data!");
 
-	Date cl_date = {day, month, year};
+	Date cl_date = { day, month, year };
 
 	return cl_date;
 }
 
-Date ChangeTime(int months, Date cur_date)
+inline Date ChangeTime(int months, Date cur_date)
 {
 	if (months < 0)
 		throw std::exception("Invalid data!");
@@ -59,7 +59,7 @@ Date ChangeTime(int months, Date cur_date)
 	return cur_date;
 }
 
-void ExpiredDep(std::map<int, Deposit*>& map_dep, int months, Date cur_date)
+inline void ExpiredDep(std::map<int, Deposit*>& map_dep, int months, Date cur_date)
 {
 	auto cur = map_dep.begin();
 	auto end = map_dep.end();
@@ -101,7 +101,7 @@ void ExpiredDep(std::map<int, Deposit*>& map_dep, int months, Date cur_date)
 	}
 }
 
-void DialogPrintDeps(const std::map<int, Deposit*> map_dep)
+inline void DialogPrintDeps(const std::map<int, Deposit*> map_dep)
 {
 	for (const auto& [key, value] : map_dep)
 	{
@@ -127,7 +127,7 @@ void DialogPrintDeps(const std::map<int, Deposit*> map_dep)
 	}
 }
 
-void DeleteDeps(std::map<int, Deposit*>& map_dep)
+inline void DeleteDeps(std::map<int, Deposit*>& map_dep)
 {
 	auto cur = map_dep.begin(),
 		end = map_dep.end();
@@ -140,7 +140,7 @@ void DeleteDeps(std::map<int, Deposit*>& map_dep)
 	}
 }
 
-void PrintInfDep(std::map<int, Deposit*>::const_iterator it)
+inline void PrintInfDep(std::map<int, Deposit*>::const_iterator it)
 {
 	std::cout << "\n" << it->first << " - NUMBER OF DEPOSIT\n" << it->second->GetSum() << " - Current sum\n";
 	std::cout << it->second->GetOpDate() << " - Date of opening the deposit\n";

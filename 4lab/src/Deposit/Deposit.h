@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <iosfwd>
+/*
+	@author BoyFromDubai
+*/
 
 struct Date
 {
@@ -17,8 +20,6 @@ private:
 
 	Date acc_op_date, 
 		last_transaction_date;
-	
-protected:
 	double cur_sum,
 		percentage_of_accural;
 
@@ -39,21 +40,39 @@ public:
 	{};
 
 	virtual ~Deposit() = default;
-
+	
+	/*
+		@brief Putting money on the account
+	*/
+	
 	inline void AddMoney(int months) { cur_sum *= 1 + percentage_of_accural / 100 * months / 12; }
-
+	/*
+		@brief Changing las transaction date
+	*/
 	inline void ChangeLastTransDate(const Date date) { last_transaction_date = date; }
+
+	/*
+		@return Sum on the account
+	*/
 
 	inline double GetSum() const { return cur_sum; }
 
 	double CalculateSumByDate(const Date);
-
+	/*
+	@brief Putting money on the acc or withdrawing it
+	*/
 	void ChangeCurSum(double, Date, char);
-
+	/*
+		@return Date of opening the account
+	*/
 	inline Date GetOpDate() const { return acc_op_date; }
-	
+	/*
+		@return Last transaction date
+	*/
 	inline Date GetLastTransDate() const { return last_transaction_date; }
-
+	/*
+	* @return Percantage
+	*/
 	inline double GetPercentage() const { return percentage_of_accural; }
 };
 
@@ -77,11 +96,19 @@ public:
 		currency_name{ curr_name },
 		exchange_rate{ ex_rate }
 	{}; 
+	/*
+		@return Sum on currency acc in rubles
+	*/
 
-	inline double ConvertToRubles() const { return cur_sum * exchange_rate; }
 
+	inline double ConvertToRubles() const {	return GetSum() * exchange_rate; }
+	/*
+	@return Currency name
+	*/
 	inline std::string GetCurrName() const { return currency_name; }
-
+	/*
+	@return exchange rate
+	*/
 	inline double GetExchRate() const { return exchange_rate; }
 };
 
@@ -101,6 +128,8 @@ public:
 		Deposit(op_date, sum, percent),
 		acc_cl_date{ cl_date }
 	{};
-
-	inline Date GetAccClDate() const { return acc_cl_date; }
+	/*
+	@return Date of closing account
+	*/
+	inline  Date GetAccClDate() const { return acc_cl_date; }
 };
