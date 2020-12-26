@@ -28,5 +28,6 @@ int main()
 		std::cout << "\n" << cli.GetCurDate() << "\n\n";
 	}
 
+
 	return 0;
 }

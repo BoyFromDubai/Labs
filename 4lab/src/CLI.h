@@ -16,7 +16,18 @@ public:
 	static void(DepositCLI::* const CLI[OPTS_NUM])();
 
 public:
-	~DepositCLI();
+	~DepositCLI()
+	{
+		auto cur = map_dep.begin(),
+			end = map_dep.end();
+
+		while (cur != end)
+		{
+			delete cur->second;
+
+			map_dep.erase(cur++);
+		}
+	};
 
 	void ChangeCurrentDate();
 	void AddDeposit();
@@ -42,6 +53,8 @@ public:
 
 		map_dep.emplace(map_dep.size() + 1, new _Dep(args...));
 	}
+
+	std::map<int, Deposit*> GetMap() { return map_dep; }
 
 private:
 	Date cur_date = { 1, 1, 2001 };

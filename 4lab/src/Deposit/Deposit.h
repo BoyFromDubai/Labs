@@ -43,11 +43,15 @@ public:
 	
 	/*
 		@brief Putting money on the account
+
+		@param Number of months
 	*/
 	
 	inline void AddMoney(int months) { cur_sum *= 1 + percentage_of_accural / 100 * months / 12; }
 	/*
 		@brief Changing las transaction date
+
+		@param Date
 	*/
 	inline void ChangeLastTransDate(const Date date) { last_transaction_date = date; }
 

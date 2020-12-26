@@ -33,10 +33,10 @@ void(DepositCLI::* const DepositCLI::CLI[])()
 	&DepositCLI::FWrite
 };
 
-DepositCLI::~DepositCLI()
+/*DepositCLI::~DepositCLI()
 {
 	DeleteDeps(map_dep);
-}
+}*/
 
 void DepositCLI::ChangeCurrentDate()
 {

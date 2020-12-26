@@ -94,9 +94,19 @@ public:
     */
     iterator end() const { return data + m_size; }
 
-    const T& operator[] (const int i) { return data[i]; };
+    const T& operator[] (const int i)
+    { 
+        if (i > m_size || i < 0)
+            throw std::exception("[ERROR]");
+
+        return data[i]; 
+    }
     /*
     @return Get a position
+
+    @param position
+
+    @throw Error
     */
     T& at(int index)
     {
@@ -108,6 +118,8 @@ public:
     }
     /*
         @brief Add an element
+
+        @param info
     */
     void push_back(T info)
     {
@@ -147,7 +159,7 @@ public:
         if (!m_size)
             return;
 
-        data[--m_size] = {};
+        --m_size;
     }
 
     size_t size() const { return m_size; }
